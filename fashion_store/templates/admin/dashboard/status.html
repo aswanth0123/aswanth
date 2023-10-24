@@ -1,0 +1,81 @@
+{% extends 'admin/dashboard/base.html' %}
+{% block content %}
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"></h1>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" style="font-size: 15px"><a href="/admin/">Home</a></li>
+      <li class="breadcrumb-item" style="font-size: 15px">Status</li>
+    </ol>
+    </div>
+
+    <div class="row">
+    <div class="col-lg-12 mb-4">
+      <!-- Simple Tables -->
+      <div class="card">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">Product Status</h6>
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th>ID</th>
+                <th>Product</th>
+                <th>Image</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            {% for item in products %}
+            <tbody>
+              <tr>
+                <td><a >{{item.productfulldetails.productcolor.productcommon.productid}}</a></td>
+                <td>{{item.productfulldetails.productcolor.productcommon.title}}</td>
+                <td class="product-col">
+                    <div class="product">
+                        <figure class="product-media">
+                            <a >
+                                <img src="{{item.productfulldetails.productcolor.productpicture.url}}" width="50" height="50">
+                            </a>
+                        </figure>
+                    </div>
+                </td>
+                <td>{{item.productfulldetails.productcolor.productcommon.createddate}}</td>
+                {% if item.productfulldetails.productcolor.productcommon.productid not in outstock%}
+                <td><span class="badge badge-success" style="font-size: 15px">Active</span></td>
+                {% else %}
+                <td><span class="badge badge-danger" style="font-size: 15px">Out of Stock</span></td>
+                {% endif %}
+                <td><a href="/admin/productedit/?id={{item.productfulldetails.productcolor.productcommon.productid}}" class="btn btn-info btn-sm"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;
+                <a href="javascript:void(0);" data-toggle="modal" data-target="#productdelete" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a></td>
+                <div class="modal fade" id="productdelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelproductdelte"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                           <button type="button" class="close" data-dismiss="modal" >
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <p>Are you sure want to delete {{item.productfulldetails.productcolor.productcommon.title}}?</p>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+                          <a href="/admin/productdelete/?id={{item.productfulldetails.productcolor.productcommon.productid}}" class="btn btn-primary">Delete</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </tr>
+            </tbody>
+            {% endfor %}
+          </table>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'admin/dashboard/base.html' %}
+{% block content %}
+<div class="container-fluid" id="container-wrapper">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"></h1>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" style="font-size: 15px"><a href="/admin/">Home</a></li>
+      <li class="breadcrumb-item" style="font-size: 15px">Details</li>
+    </ol>
+  </div>
+  <div class="row">
+    <div class="col-lg-11 mb-4">
+      <div class="card">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h3 class="m-0 font-weight-bold text-primary">Total Customers</h3>
+          <!-- <a class="m-0 float-right btn btn-danger btn-sm" href="#">View More <i
+              class="fas fa-chevron-right"></i></a> -->
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th>Customer</th>
+                <th>Phone no</th>
+                <th>Gender</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            {% for item in customers %}
+            <tbody>
+              <tr>
+                <td><a >{{item.name}}</a></td>
+                <td>{{item.phoneno}}</td>
+                {% if item.gender == 'Male' %}
+                <td>{{item.gender}}</td>
+                {% elif item.gender == 'Female' %}
+                <td>{{item.gender}}</td>
+                {% else %}
+                <td>not seleted</td>
+                {% endif %}
+                <td>{{item.email}}</td>
+              </tr>
+            </tbody>
+            {% endfor %}
+          </table>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

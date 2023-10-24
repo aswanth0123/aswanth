@@ -1,0 +1,85 @@
+{% extends 'admin/dashboard/base.html' %}
+{% block content %}
+<div class="container-fluid" id="container-wrapper">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"></h1>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" style="font-size: 15px"><a href="/admin/dashboard">Home</a></li>
+      <li class="breadcrumb-item" style="font-size: 15px">Product</li>
+      <li class="breadcrumb-item active" style="font-size: 15px" aria-current="page">New Item</li>
+      <li class="breadcrumb-item active"  style="font-size: 15px" aria-current="page">size</li>
+    </ol>
+  </div>
+  <div class="row">
+    <div class="col-lg-7">
+      <!-- Form Basic -->
+      {% if sizeid %}
+      <div class="card-body">
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h6><i class="fas fa-check"></i><b> Success!</b></h6>
+          Product size added succefully id: {{sizeid}}
+        </div>
+      </div>
+      {% elif exist %}
+      <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h6><i class="fas fa-exclamation-triangle"></i><b> Warning!</b></h6>
+        Size already exist in this product
+      </div>
+      {% endif %}
+      <div class="card mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">Product Size and Quantity</h6>
+        </div>
+        <div class="card-body">
+          <form method='POST' action="/admin/size/">
+            {% csrf_token%}
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Product Id:</span>
+                </div>
+                <select required name='id' class="form-control" id="exampleFormControlSelect2">
+                <option value=''>Select</option>
+                {% for item in products%}
+                <option value='{{item.id}}'>{{item.colorid}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Size</span>
+                </div>
+                <select name='size' required class="form-control" id="exampleFormControlSelect1">
+                <option value=''></option>
+                <option value='small'>Small</option>
+                <option value='medium'>Medium</option>
+                <option value='large'>Large</option>
+                <option value='extra large'>Extra Large</option>
+              </select>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Quantity</span>
+                </div>
+                <input required type="number" name='qunty' class="form-control" aria-label="Amount (to the nearest dollar)">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">RS</span>
+                </div>
+                <input required type="text" name='price' class="form-control" aria-label="Amount (to the nearest dollar)">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+]</div>
+{% endblock %}

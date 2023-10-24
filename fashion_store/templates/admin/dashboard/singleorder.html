@@ -1,0 +1,79 @@
+{% extends 'admin/dashboard/base.html' %}
+{% block content %}
+<div class="container-fluid" id="container-wrapper">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"></h1>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" style="font-size: 15px"><a href="/admin/">Home</a></li>
+      <li class="breadcrumb-item" style="font-size: 15px">Order</li>
+    </ol>
+  </div>
+  {% for item in details%}
+  <div class="row">
+    <div class="col-lg-10">
+      <div class="card mb-5">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">ORDER {{item.orderid}}</h6>
+        </div>
+        <div class="card-body">
+            <h5>Shipping:</h5>
+            <article style="font-size: 20px">{{item.address}}</article>
+            <br>
+            <h5>Payment Method: {{item.payment}}</h5>
+            <br>
+            <h5>Status: {{item.deliverystatus}}</h5>
+            <br>
+            <br>
+            <div class="table-responsive">
+              <table class="table table-wishlist table-mobile col-lg-13">
+                <thead>
+                    <tr>
+                        <th style="font-size: 18px">Product</th>
+                        <th style="font-size: 18px">Product Id</th>
+                        <th style="font-size: 18px">Name</th>
+                        <th style="font-size: 18px">Size</th>
+                        <th style="font-size: 18px">Quantity</th>
+                        <th style="font-size: 18px">Price</th>
+                        <th style="font-size: 18px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="product-col">
+                            <div class="product">
+                                <figure class="product-media">
+                                    <a >
+                                        <img src="{{item.productid.productcolor.productpicture.url}}" width="50" height="50">
+                                    </a>
+                                </figure>
+                            </div><!-- End .product -->
+                        </td>
+                        <td class="price-col">{{item.productid.productcolor.colorid}}</td>
+                        <td class="price-col">{{item.productid.productcolor.productcommon.title}}</td>
+                        <td class="price-col">{{item.productid.size}}</td>
+                        <td class="price-col">{{item.quantity}}</td>
+                        <td class="price-col">$ {{item.totalprice}}</td>
+                        <td class="price-col">
+                            <div class="btn-group dropright">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="false">
+                              Action
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" href="/admin/orderaccept/Processing/{{item.id}}/">Processing</a>
+                              <a class="dropdown-item" href="/admin/orderaccept/Shipped/{{item.id}}/">Shipped</a>
+                              <a class="dropdown-item" href="/admin/orderaccept/Delivered/{{item.id}}/">Delivered</a>
+                            </div>
+                          </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  {% endfor %}
+{% endblock %}

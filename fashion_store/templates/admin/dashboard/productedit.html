@@ -1,0 +1,130 @@
+{% extends 'admin/dashboard/base.html' %}
+{% block content %}
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"></h1>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" style="font-size: 15px"><a href="/admin/">Home</a></li>
+      <li class="breadcrumb-item" style="font-size: 15px">Product Edit</li>
+    </ol>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+          <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Common Details</h6>
+            </div>
+            <div class="card-body">
+              <form method='POST' action="/admin/commonedit/">
+                {% csrf_token%}
+                {% for item in product%}
+                <input type="hidden" name="url" value="{{request.get_full_path}}">
+                <input type="hidden" name='proid' value="{{item.productfulldetails.productcolor.productcommon.productid}}" >
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Product ID:</label>
+                  <input type="text"  class="form-control" value="{{item.productfulldetails.productcolor.productcommon.productid}}" disabled="" required>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Product Name:</label>
+                  <input type="text" name='name' class="form-control" value="{{item.productfulldetails.productcolor.productcommon.title}}" required>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Category:</label>
+                  <input type="text" name='cat' class="form-control" value="{{item.productfulldetails.productcolor.productcommon.category}}" required>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Brand Name:</label>
+                  <input type="text" name='brand' class="form-control" value="{{item.productfulldetails.productcolor.productcommon.brand}}" required>
+                </div>
+                <fieldset required class="form-group">
+                  <div class="row">
+                    <legend class="col-form-label col-sm-3 pt-0" >Gender:</legend>
+                    <div class="col-sm-9">
+                      {% if item.productfulldetails.productcolor.productcommon.gender == 'men' %}
+                      <div class="custom-control custom-radio">
+                        <input required type="radio" checked id="customRadio1" name="gender" value="men" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio1">Men</label>
+                      </div>
+<!--                      <div class="custom-control custom-radio">-->
+<!--                        <input type="radio" id="customRadio2" name="gender" value='women' class="custom-control-input">-->
+<!--                        <label class="custom-control-label" for="customRadio2">Women</label>-->
+<!--                      </div>-->
+                      {% else %}
+                      <div class="custom-control custom-radio">
+                        <input required type="radio"  id="customRadio1" name="gender" value="men" class="custom-control-input">
+                        <label class="custom-control-label" for="customRadio1">Men</label>
+                      </div>
+<!--                      <div class="custom-control custom-radio">-->
+<!--                        <input type="radio" id="customRadio2" checked name="gender" value='women' class="custom-control-input">-->
+<!--                        <label class="custom-control-label" for="customRadio2">Women</label>-->
+<!--                      </div>-->
+                      {% endif %}
+                    </div>
+                  </div>
+                </fieldset>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Product Details:</label>
+                  <textarea required class="form-control" id="details" name='details' rows="3">{{item.productfulldetails.productcolor.productcommon.productdetail}}</textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Style Note</label>
+                  <textarea required class="form-control" id="note" name='note' rows="3">{{item.productfulldetails.productcolor.productcommon.stylenote}}</textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Shipping & returns:</label>
+                  <textarea required class="form-control" id="shipreturn" name='shipreturn' rows="3">{{item.productfulldetails.productcolor.productcommon.shippingandreturns}}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+              </form>
+              {% endfor%}
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-primary">Product Size</h6>
+            </div>
+            <div class="card-body">
+              <form method='POST' action="/admin/quantityedit/">
+                {% csrf_token%}
+                <input type="hidden" name="url" value="{{request.get_full_path}}">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Product Id:</span>
+                    </div>
+                    <select required name='id' class="form-control" id="proid">
+                    <option value=''>Select</option>
+                    {% for i in colorid%}
+                    <option value='{{i.id}}'>{{i.colorid}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Size</span>
+                    </div>
+                    <select name='size' required class="form-control" id="prosize">
+
+                  </select>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">Quantity</span>
+                    </div>
+                    <input required type="number" name='qunty' id="qty" class="form-control" aria-label="Amount (to the nearest dollar)">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">RS</span>
+                    </div>
+                    <input required type="text" name='price' id="price" class="form-control" aria-label="Amount (to the nearest dollar)">
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+{% endblock %}

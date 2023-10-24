@@ -1,0 +1,294 @@
+{% extends 'customer/homepage/base.html' %}
+{% block content %}
+<main class="main">
+            <div class="page-header text-center" style="background-image: url('/static/assets/images/page-header-bg.jpg')">
+                <div class="container">
+                    <h1 class="page-title">My Account</h1>
+                </div>
+            </div>
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+                <div class="container">
+
+                </div>
+            </nav>
+
+            <div class="page-content">
+                <div class="dashboard">
+                    <div class="container">
+                        <div class="row">
+                            <aside class="col-md-4 col-lg-3">
+                                <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+                                    <!-- <li class="nav-item">
+                                        <a style="font-size: 17px" class="nav-link" id="tab-dashboard-link" data-toggle="tab" href="#tab-dashboard" role="tab" aria-controls="tab-dashboard" aria-selected="false">Dashboard</a>
+                                    </li> -->
+                                    <li class="nav-item">
+                                        <a style="font-size: 17px" class="nav-link" id="tab-account-link" data-toggle="tab" href="#tab-account" role="tab" aria-controls="tab-account" aria-selected="false">Account Details</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a style="font-size: 17px" class="nav-link active" id="tab-orders-link" data-toggle="tab" href="#tab-orders" role="tab" aria-controls="tab-orders" aria-selected="false">Orders</a>
+                                    </li>
+                                   <li class="nav-item">
+                                        <a style="font-size: 17px" class="nav-link" id="tab-password-link" data-toggle="tab" href="#tab-password" role="tab" aria-controls="tab-orders" aria-selected="false">Password</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a style="font-size: 17px" class="nav-link" id="tab-address-link" data-toggle="tab" href="#tab-address" role="tab" aria-controls="tab-address" aria-selected="false">Address</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a style="font-size: 17px" class="nav-link" href="/logout/">Sign Out</a>
+                                    </li>
+                                </ul>
+                            </aside>
+
+                            <div class="col-md-8 col-lg-9">
+                                <div class="tab-content">
+                                    <div class="tab-pane fade" id="tab-dashboard" role="tabpanel" aria-labelledby="tab-dashboard-link">
+                                        <div class="">
+                                            <img src="/static/assets/images/products/single/2-small.jpg" style="border-radius: 50%; border-color: black;  width: 150px; position: relative;left: 200px"  alt="Avatar">
+                                            <h3 class="product-title">
+                                                <a href="#"></a>
+                                            </h3>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="tab-pane fade show active" id="tab-orders" role="tabpanel" aria-labelledby="tab-orders-link">
+                                        <div class="page-content">
+                                            <div class="container">
+                                                <table class="table table-wishlist table-mobile col-lg-13">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="font-size: 18px">Product</th>
+                                                            <th style="font-size: 18px">Price</th>
+                                                            <th style="font-size: 18px">Delivery</th>
+                                                            <th style="font-size: 18px">Payment</th>
+                                                            <th style="font-size: 18px">Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    {% for item in orders %}
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="product-col">
+                                                                <div class="product">
+                                                                    <figure class="product-media">
+                                                                        <a href="/productsingle/?id2={{item.productid.productcolor.colorid}}">
+                                                                            <img src="{{item.productid.productcolor.picture.url}}" alt="Product image">
+                                                                        </a>
+                                                                    </figure>
+
+                                                                    <h3 class="product-title">
+                                                                        <a href="/productsingle/?id2={{item.productid.productcolor.colorid}}">{{item.productid.productcolor.productcommon.title}}</a>
+                                                                    </h3>
+                                                                </div>
+                                                            </td>
+                                                            <td class="price-col">${{item.totalprice}}</td>
+                                                            <td class="price-col">{{item.deliverydate|date:'d-m-y'}}</td>
+                                                            <td class="price-col">{{item.payment}}</td>
+                                                            <td class="stock-col"><span class="in-stock" style="font-size: 20px">{{item.deliverystatus}}</span></td>
+                                                            <td class="action-col">
+                                                                <!-- <div class="dropdown">
+                                                                <button class="btn btn-block btn-outline-primary-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="icon-list-alt"></i>Select Options
+                                                                </button> -->
+
+                                                                <!-- <div class="dropdown-menu">
+                                                                    <a class="dropdown-item" href="#">First option</a>
+                                                                    <a class="dropdown-item" href="#">Another option</a>
+                                                                    <a class="dropdown-item" href="#">The best option</a>
+                                                                  </div>
+                                                                </div> -->
+                                                            </td>
+                                                            <td class="remove-col"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                    {% endfor %}
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+                                        <p>The following addresses will be used on the checkout page by default.</p>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="card card-dashboard">
+                                                    {% for ad in address%}
+                                                    {% if not ad.house %}
+                                                    <div class="card-body">
+                                                        <h3 class="card-title">Shipping Address</h3>
+                                                        <p>User Name<br>
+                                                        John str<br>
+                                                        New York, NY 10001<br>
+                                                        1-234-987-6543<br>
+                                                        yourmail@mail.com<br>
+                                                        <a href="#address-modal" data-toggle="modal">Edit <i class="icon-edit"></i></a></p>
+                                                    </div>
+                                                    {% else %}
+                                                    <div class="card-body">
+                                                        <h3 class="card-title">Shipping Address</h3>
+                                                        <p style="font-size: 15px">{{ad.customerid.fname}}.{{ad.customerid.lname}}<br>
+                                                        {{ad.house}}<br>
+                                                        {{ad.nearlocation}}<br>
+                                                        {{ad.city}},{{ad.state}}<br>
+                                                        {{ad.phone}}<br>
+                                                        {{ad.customerid.email}}<br>
+                                                        <a href="#address-modal" data-toggle="modal">Edit <i class="icon-edit"></i></a></p>
+                                                    </div>
+                                                    {% endif %}
+                                                    {% endfor %}
+
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="tab-account" role="tabpanel" aria-labelledby="tab-account-link">
+                                        <form action="/personaldetails/" method="POST">
+                                            {% csrf_token %}
+                                            {% for item in account%}
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label style="font-size: 16px">First Name *</label>
+                                                    <input type="text" name='fname' value="{{item.fname}}" class="form-control" required>
+                                                </div><!-- End .col-sm-6 -->
+
+                                                <div class="col-sm-6">
+                                                    <label style="font-size: 16px">Last Name *</label>
+                                                    <input type="text" name='lname' value="{{item.lname}}" class="form-control" required>
+                                                </div><!-- End .col-sm-6 -->
+                                            </div><!-- End .row -->
+
+                                            <label style="font-size: 16px">Email address *</label>
+                                            <input type="email" name='email' value="{{item.email}}" class="form-control" required>
+                                            <label style="font-size: 16px">Phone *</label>
+                                            <input type="text" name='phone' value="{{item.phoneno}}" class="form-control" required>
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <label style="font-size: 16px" for="gender">Gender *</label>
+                                                    <div class="select-custom">
+                                                        <select name="gender"  class="form-control"  >
+                                                            <option  value="{{item.gender}}">{{item.gender}}</option>
+                                                            <option  value="Male">Male</option>
+                                                            <option  value="Male">Female</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            {% endfor %}
+                                            <button type="submit" class="btn btn-outline-primary-2">
+                                                <span>SAVE CHANGES</span>
+                                                <i class="icon-long-arrow-right"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="tab-password" role="tabpanel" aria-labelledby="tab-password-link">
+                                        <form action="/passwordchange/" method="POST">
+                                            {% csrf_token %}
+                                            <label style="text-align: center; color: red; font-size: 16px" id='error2'></label>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <label>Current password</label>
+                                                    <input type="password" id="oldpass" class="form-control">
+
+                                                    <label>New password</label>
+                                                    <input type="password" name='new' class="form-control" title="Password must contain at least 6 characters, including UPPER/lowercase and numbers"  required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"  onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : ''); if(this.checkValidity()) form.confirm.pattern = RegExp.escape(this.value);">
+
+                                                    <label>Confirm new password</label>
+                                                    <input type="password" name="confirm" class="form-control mb-2" title="Please enter the same Password as above"  required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"  onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');">
+
+                                                    <button type="submit" id='submit-pass' class="btn btn-outline-primary-2">
+                                                        <span>Update</span>
+                                                        <i class="icon-long-arrow-right"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div class="modal fade" id="address-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"><i class="icon-close"></i></span>
+                            </button>
+
+                            <div class="form-box">
+                                <label style="text-align: center; color: red; font-size: 16px" id='error'></label>
+                                <div class="form-tab">
+                                    <ul class="nav nav-pills nav-fill" role="tablist">
+                                        <li class="nav-item">
+                                            <a style="font-size: 18px" class="nav-link active" id="address-tab"
+                                                data-toggle="tab" href="#address" role="tab" aria-controls="signin-2"
+                                                aria-selected="True">Address</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="address" role="tabpanel"
+                                            aria-labelledby="address-tab">
+                                            <form action="/address/" method="POST">
+                                                {% csrf_token %}
+                                                {% for ad in address %}
+                                                <div class="form-group">
+                                                    <label for="House">Street address *</label>
+                                                    <input type="text" class="form-control log" value="{{ad.house}}" name="house"
+                                                        required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="House">Near Location *</label>
+                                                    <input type="text" class="form-control log" value="{{ad.nearlocation}}" name="nearl"
+                                                        required>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label>Town / City *</label>
+                                                        <input type="text" class="form-control" name='city' value="{{ad.city}}" required>
+                                                    </div>
+
+                                                    <div class="col-sm-6">
+                                                        <label>State *</label>
+                                                        <input type="text" class="form-control" name='state' value="{{ad.state}}" required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label>Postcode  *</label>
+                                                        <input type="text" class="form-control" name='pincode' value="{{ad.pincode}}" required>
+                                                    </div>
+
+                                                    <div class="col-sm-6">
+                                                        <label>Phone *</label>
+                                                        <input type="tel" class="form-control" name='phone' value="{{ad.phone}}" required>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+
+                                                <div class="form-footer">
+                                                    <button id='submit-log' type="submit" class="btn btn-outline-primary-2">
+                                                        <span>Submit</span>
+                                                        <i class="icon-long-arrow-right"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main><
+
+{% endblock %}

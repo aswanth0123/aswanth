@@ -1,0 +1,100 @@
+{% extends 'customer/homepage/base.html'%}
+{% block content %}
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('/static/assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Shop</span></h1>
+        </div>
+    </div>
+
+            <div class="products">
+                <div class="row">
+                    {% for item in products %}
+                    {% if item.productfulldetails.productcolor.productcommon.productid not in stock %}
+                    <div class="col-6 col-md-4 col-lg-4 col-xl-3">
+                        <div class="product">
+                            <figure class="product-media">
+                                <span class="product-label label-new"></span>
+                                <a href="/productsingle/?id2={{item.productfulldetails.productcolor.colorid}}">
+                                    <img src="{{item.productfulldetails.productcolor.picture.url}}" alt="Product image" class="product-image">
+                                </a>
+                            </figure>
+
+                            <div class="product-body">
+                                <div class="product-cat">
+                                    <a href="/productsingle/?id2={{item.productfulldetails.productcolor.colorid}}">{{item.productfulldetails.productcolor.productcommon.gender}}</a>
+                                </div>
+                                <h3 class="product-title"><a href="/productsingle/?id={{item.productfulldetails.productcolor.productcommon.productid}}">{{item.productfulldetails.productcolor.productcommon.title}}</a></h3>
+                                <div class="product-price">
+                                    ₹{{item.productfulldetails.price}}
+                                </div>
+                                <div class="ratings-container">
+                                    <div class="ratings">
+                                        <div class="ratings-val" style="width: {{item.productfulldetails.productcolor.productcommon.ratepercentage}}%;"></div>
+                                    </div>
+                                    <span class="ratings-text">( {{item.productfulldetails.productcolor.productcommon.ratecount}} Reviews )</span>
+                                </div>
+
+                                <div class="product-nav product-nav-thumbs">
+                                    {% for i in color %}
+                                    {% if i.id in colorsize %}
+                                    {% if i.productcommon.productid == item.productfulldetails.productcolor.productcommon.productid %}
+                                    <a href="/productsingle/?id2={{i.colorid}}" class="active">
+                                        <img src="{{i.productpicture.url}}" alt="product desc">
+                                    </a>
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="col-6 col-md-4 col-lg-4 col-xl-3">
+                        <div class="product">
+                            <figure class="product-media">
+                                <span class="product-label label-out">Out of stock</span>
+                                <a >
+                                    <img src="{{item.productfulldetails.productcolor.picture.url}}" alt="Product image" class="product-image">
+                                </a>
+                            </figure>
+
+                            <div class="product-body">
+                                <div class="product-cat">
+                                    <a >{{item.productfulldetails.productcolor.productcommon.gender}}</a>
+                                </div>
+                                <h3 class="product-title"><a >{{item.productfulldetails.productcolor.productcommon.title}}</a></h3>
+                                <div class="product-price">
+                                    <span class="out-price">₹{{item.productfulldetails.price}}</span>
+                                </div>
+                                <div class="ratings-container">
+                                    <div class="ratings">
+                                        <div class="ratings-val" style="width: {{item.productfulldetails.productcolor.productcommon.ratepercentage}}%;"></div>
+                                    </div>
+                                    <span class="ratings-text">( {{item.productfulldetails.productcolor.productcommon.ratecount}} Reviews )</span>
+                                </div>
+                                <div class="product-nav product-nav-thumbs">
+                                    {% for i in color %}
+                                    {% if i.id in colorsize %}
+                                    {% if i.productcommon.productid == item.productfulldetails.productcolor.productcommon.productid %}
+                                    <a  class="active">
+                                        <img src="{{i.productpicture.url}}" alt="product desc">
+                                    </a>
+                                    {% endif %}
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif%}
+                    {% endfor %}
+                </div>
+
+            </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

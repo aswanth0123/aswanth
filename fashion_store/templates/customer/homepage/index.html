@@ -1,0 +1,624 @@
+{% extends 'customer/homepage/base.html' %}
+{% block content %}
+<main class="main" xmlns="http://www.w3.org/1999/html">
+            <div class="intro-slider-container">
+                <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light" data-toggle="owl" data-owl-options='{
+                        "dots": false,
+                        "nav": false,
+                        "responsive": {
+                            "992": {
+                                "nav": true
+                            }
+                        }
+                    }'>
+                    <div class="intro-slide" style="background-image: url(/static/assets/images/demos/demo-6/slider/999.jpg);">
+                        <div class="container intro-content text-center">
+                            <h6 class="intro-title text-blue"><font color="FFFF33">New colloctions</font></h6>
+
+                            <a href="/category/" class="btn btn-outline-red-4">
+                                <span><b><font color="yellow" size="5">Discover More</font></b></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="intro-slide" style="background-image: url(/static/assets/images/demos/demo-6/slider/slider-4.jpg);">
+                        <div class="container intro-content text-center">
+                            <h3 class="intro-subtitle text-white"><font size="500"> Don’t Miss</font></h3>
+                            <h6 class="intro-title text-white"><font color="357ec7">exciting Deals</font></h6>
+
+                            <a href="/category/" class="btn btn-outline-black-4">
+                                <span><font color="yellow">Discover More</font></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <span class="slider-loader"></span>
+            </div>
+
+            <div class="mb-5"></div>
+            <div class="container">
+                <div class="heading heading-center mb-3">
+                    <h2 class="title">Trending</h2>
+
+                    <ul class="nav nav-pills justify-content-center" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="trending-all-link" data-toggle="tab" href="#trending-all-tab" role="tab" aria-controls="trending-all-tab" aria-selected="true">All</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab-content tab-content-carousel">
+                    <div class="tab-pane p-0 fade show active" id="trending-all-tab" role="tabpanel" aria-labelledby="trending-all-link">
+                        <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                            data-owl-options='{
+                                "nav": false,
+                                "dots": true,
+                                "margin": 20,
+                                "loop": false,
+                                "responsive": {
+                                    "0": {
+                                        "items":2
+                                    },
+                                    "480": {
+                                        "items":2
+                                    },
+                                    "768": {
+                                        "items":3
+                                    },
+                                    "992": {
+                                        "items":4
+                                    },
+                                    "1200": {
+                                        "items":4,
+                                        "nav": true,
+                                        "dots": false
+                                    }
+                                }
+                            }'>
+                            {% for item in cloths %}
+                            {% if item.productfulldetails.productcolor.productcommon.productid not in stock %}
+                            <div class="product product-7 text-center">
+                                <figure class="product-media">
+                                    <a href="/productsingle/?id2={{item.productfulldetails.productcolor.colorid}}">
+                                        <img src="{{item.productfulldetails.productcolor.productpicture.url}}" alt="Product image" width="377" height="277" class="product-image">
+                                        <img src="{{item.productfulldetails.productcolor.picture.url}}" alt="Product image" width="277" height="277" class="product-image-hover">
+                                    </a>
+
+                                    <div class="product-action-vertical">
+                                        <button style="border-style: none"  class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></button>
+                                    </div>
+                                     <div class="product-action">
+                                        <button  style="border-style: none" value='{{item.productfulldetails.id}}' id='addcart'  class="btn-product btn-cart"><span>add to cart</span></button>
+                                    </div>
+                                </figure>
+
+                                <div class="product-body">
+                                    <div class="product-cat">
+                                        <a>Clothing</a>
+                                    </div>
+                                    <h3 class="product-title"><a href="/productsingle/?id2={{item.productfulldetails.productcolor.colorid}}">{{item.productfulldetails.productcolor.productcommon.title}}</a></h3><!-- End .product-title -->
+                                    <div class="product-price">
+                                        ₹{{item.productfulldetails.price}}
+                                    </div>
+                                    <div class="ratings-container">
+                                        <div class="ratings">
+                                            <div class="ratings-val" style="width: {{item.productfulldetails.productcolor.productcommon.ratepercentage}}%;"></div>
+                                        </div>
+                                        <span class="ratings-text">( {{item.productfulldetails.productcolor.productcommon.ratecount}} Reviews )</span>
+                                    </div>
+                                    <div class="product-nav product-nav-thumbs">
+                                        {% for i in color %}
+                                        {% if i.id in colorsize %}
+                                        {% if i.productcommon.productid == item.productfulldetails.productcolor.productcommon.productid %}
+                                        <a href="/productsingle/?id2={{i.colorid}}" class="active">
+                                            <img src="{{i.productpicture.url}}" alt="product desc">
+                                        </a>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="product product-7 text-center">
+                                <figure class="product-media">
+                                    <span class="product-label label-out">Out Of Stock</span>
+                                    <a >
+                                        <img src="{{item.productfulldetails.productcolor.productpicture.url}}" width="277" height="377" alt="Product image" class="product-image">
+                                        <img src="{{item.productfulldetails.productcolor.picture.url}}" width="277" height="377" alt="Product image" class="product-image-hover">
+                                    </a>
+
+                                    <div class="product-action-vertical">
+                                        <a  class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                    </div>
+
+                                    <div class="product-action">
+                                        <a  ><span></span></a>
+                                    </div>
+                                </figure>
+
+                                <div class="product-body">
+                                    <div class="product-cat">
+                                        <a>Clothing</a>
+                                    </div>
+                                    <h3 class="product-title"><a >{{item.productfulldetails.productcolor.productcommon.title}}</a></h3>
+                                    <div class="product-price">
+                                        ₹{{item.productfulldetails.price}}
+                                    </div>
+                                    <div class="ratings-container">
+                                        <div class="ratings">
+                                            <div class="ratings-val" style="width: {{item.productfulldetails.productcolor.productcommon.ratepercentage}}%;"></div>
+                                        </div>
+                                        <span class="ratings-text">( {{item.productfulldetails.productcolor.productcommon.ratecount}} Reviews )</span>
+                                    </div>
+                                    <div class="product-nav product-nav-thumbs">
+                                        {% for i in color %}
+                                        {% if i.id in colorsize %}
+                                        {% if i.productcommon.productid == item.productfulldetails.productcolor.productcommon.productid %}
+                                        <a class="active">
+                                            <img src="{{i.productpicture.url}}" alt="product desc">
+                                        </a>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="tab-pane p-0 fade" id="trending-women-tab" role="tabpanel" aria-labelledby="trending-women-link">
+                        <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                            data-owl-options='{
+                                "nav": false,
+                                "dots": true,
+                                "margin": 20,
+                                "loop": false,
+                                "responsive": {
+                                    "0": {
+                                        "items":0
+                                    },
+                                    "480": {
+                                        "items":2
+                                    },
+                                    "768": {
+                                        "items":3
+                                    },
+                                    "992": {
+                                        "items":4
+                                    },
+                                    "1200": {
+                                        "items":4,
+                                        "nav": true,
+                                        "dots": false
+                                    }
+                                }
+                            }'>
+                            {% for item in cloths %}
+                            {% if item.productfulldetails.productcolor.productcommon.gender == 'women' %}
+                            {% if item.productfulldetails.productcolor.productcommon.productid not in stock %}
+                            <div class="product product-7 text-center">
+                                <figure class="product-media">
+                                    <a href="/productsingle/?id2={{item.productfulldetails.productcolor.colorid}}">
+                                        <img src="{{item.productfulldetails.productcolor.productpicture.url}}" alt="Product image" width="277" height="377" class="product-image">
+                                        <img src="{{item.productfulldetails.productcolor.picture.url}}" alt="Product image" width="277" height="377" class="product-image-hover">
+                                    </a>
+
+                                    <div class="product-action-vertical">
+                                        <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                    </div>
+
+                                     <div class="product-action">
+                                        <button  style="border-style: none" id='cart' value='{{item.productfulldetails.id}}' class="btn-product btn-cart"><span>add to cart</span></button>
+                                    </div>
+                                </figure>
+                                <div class="product-body">
+                                    <div class="product-cat">
+                                        <a>Clothing</a>
+                                    </div>
+                                    <h3 class="product-title"><a href="/productsingle/?id2={{item.productfulldetails.productcolor.colorid}}">{{item.productfulldetails.productcolor.productcommon.title}}</a></h3><!-- End .product-title -->
+                                    <div class="product-price">
+                                        ₹{{item.productfulldetails.price}}
+                                    </div>
+                                    <div class="ratings-container">
+                                        <div class="ratings">
+                                            <div class="ratings-val" style="width: {{item.productfulldetails.productcolor.productcommon.ratepercentage}}%;"></div>
+                                        </div>
+                                        <span class="ratings-text">( {{item.productfulldetails.productcolor.productcommon.ratecount}} Reviews )</span>
+                                    </div>
+                                    <div class="product-nav product-nav-thumbs">
+                                        {% for i in color %}
+                                        {% if i.id in colorsize %}
+                                        {% if i.productcommon.productid == item.productfulldetails.productcolor.productcommon.productid %}
+                                        <a href="/productsingle/?id2={{i.colorid}}" class="active">
+                                            <img src="{{i.productpicture.url}}" alt="product desc">
+                                        </a>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="product product-7 text-center">
+                                <figure class="product-media">
+                                    <span class="product-label label-out">Out Of Stock</span>
+                                    <a >
+                                        <img src="{{item.productfulldetails.productcolor.productpicture.url}}" alt="Product image" class="product-image">
+                                        <img src="{{item.productfulldetails.productcolor.picture.url}}" alt="Product image" class="product-image-hover">
+                                    </a>
+
+                                    <div class="product-action-vertical">
+                                        <a  class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                    </div>
+                                    <div class="product-action">
+                                        <a  ><span></span></a>
+                                    </div>
+                                </figure>
+
+                                <div class="product-body">
+                                    <div class="product-cat">
+                                        <a>Clothing</a>
+                                    </div>
+                                    <h3 class="product-title"><a >{{item.productfulldetails.productcolor.productcommon.title}}</a></h3>
+                                    <div class="product-price">
+                                        ₹{{item.productfulldetails.price}}
+                                    </div>
+                                    <div class="ratings-container">
+                                        <div class="ratings">
+                                            <div class="ratings-val" style="width: {{item.productfulldetails.productcolor.productcommon.ratepercentage}}%;"></div>
+                                        </div>
+                                        <span class="ratings-text">( {{item.productfulldetails.productcolor.productcommon.ratecount}} Reviews )</span>
+                                    </div>
+                                    <div class="product-nav product-nav-thumbs">
+                                        {% for i in color %}
+                                        {% if i.id in colorsize %}
+                                        {% if i.productcommon.productid == item.productfulldetails.productcolor.productcommon.productid %}
+                                        <a  class="active">
+                                            <img src="{{i.productpicture.url}}" alt="product desc">
+                                        </a>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="tab-pane p-0 fade" id="trending-men-tab" role="tabpanel" aria-labelledby="trending-men-link">
+                        <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
+                            data-owl-options='{
+                                "nav": false,
+                                "dots": true,
+                                "margin": 20,
+                                "loop": false,
+                                "responsive": {
+                                    "0": {
+                                        "items":0
+                                    },
+                                    "480": {
+                                        "items":2
+                                    },
+                                    "768": {
+                                        "items":3
+                                    },
+                                    "992": {
+                                        "items":4
+                                    },
+                                    "1200": {
+                                        "items":4,
+                                        "nav": true,
+                                        "dots": false
+                                    }
+                                }
+                            }'>
+                            {% for item in cloths %}
+                            {% if item.productfulldetails.productcolor.productcommon.gender == 'men' %}
+                            {% if item.productfulldetails.productcolor.productcommon.productid not in stock %}
+                            <div class="product product-7 text-center">
+                                <figure class="product-media">
+                                    <a href="/productsingle/?id2={{item.productfulldetails.productcolor.colorid}}">
+                                        <img src="{{item.productfulldetails.productcolor.productpicture.url}}" width="277" height="377" alt="Product image" class="product-image">
+                                        <img src="{{item.productfulldetails.productcolor.picture.url}}" width="277" height="377" alt="Product image" class="product-image-hover">
+                                    </a>
+
+                                    <div class="product-action-vertical">
+                                        <button style="border-style: none" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></button>
+                                    </div>
+
+                                     <div class="product-action">
+                                        <button  style="border-style: none"  value='{{item.productfulldetails.id}}' id='addcart' class="btn-product btn-cart"><span>add to cart</span></button>
+                                    </div>
+                                </figure>
+
+                                <div class="product-body">
+                                    <div class="product-cat">
+                                        <a>Clothing</a>
+                                    </div>
+                                    <h3 class="product-title"><a href="/productsingle/?id2={{item.productfulldetails.productcolor.colorid}}">{{item.productfulldetails.productcolor.productcommon.title}}</a></h3><!-- End .product-title -->
+                                    <div class="product-price">
+                                        ₹{{item.productfulldetails.price}}
+                                    </div>
+                                    <div class="ratings-container">
+                                        <div class="ratings">
+                                            <div class="ratings-val" style="width: {{item.productfulldetails.productcolor.productcommon.ratepercentage}}%;"></div>
+                                        </div>
+                                        <span class="ratings-text">( {{item.productfulldetails.productcolor.productcommon.ratecount}} Reviews )</span>
+                                    </div>
+                                    <div class="product-nav product-nav-thumbs">
+                                        {% for i in color %}
+                                        {% if i.id in colorsize %}
+                                        {% if i.productcommon.productid == item.productfulldetails.productcolor.productcommon.productid %}
+                                        <a href="/productsingle/?id2={{i.colorid}}" class="active">
+                                            <img src="{{i.productpicture.url}}" alt="product desc">
+                                        </a>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="product product-7 text-center">
+                                <figure class="product-media">
+                                    <span class="product-label label-out">Out Of Stock</span>
+                                    <a >
+                                        <img src="{{item.productfulldetails.productcolor.productpicture.url}}" width="277" height="377" alt="Product image" class="product-image">
+                                        <img src="{{item.productfulldetails.productcolor.picture.url}}" width="277" height="377" alt="Product image" class="product-image-hover">
+                                    </a>
+
+                                    <div class="product-action-vertical">
+                                        <a  class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                    </div>
+
+                                    <div class="product-action">
+                                        <a  ><span></span></a>
+                                    </div>
+                                </figure>
+
+                                <div class="product-body">
+                                    <div class="product-cat">
+                                        <a>Clothing</a>
+                                    </div>
+                                    <h3 class="product-title"><a >{{item.productfulldetails.productcolor.productcommon.title}}</a></h3>]
+                                    <div class="product-price">
+                                        ₹{{item.productfulldetails.price}}
+                                    </div>
+                                    <div class="ratings-container">
+                                        <div class="ratings">
+                                            <div class="ratings-val" style="width: {{item.productfulldetails.productcolor.productcommon.ratepercentage}}%;"></div>
+                                        </div>
+                                        <span class="ratings-text">( {{item.productfulldetails.productcolor.productcommon.ratecount}} Reviews )</span>
+                                    </div>
+                                    <div class="product-nav product-nav-thumbs">
+                                        {% for i in color %}
+                                        {% if i.id in colorsize %}
+                                        {% if i.productcommon.productid == item.productfulldetails.productcolor.productcommon.productid %}
+                                        <a  class="active">
+                                            <img src="{{i.productpicture.url}}" alt="product desc">
+                                        </a>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-5"></div>
+
+            <div class="deal bg-image pt-8 pb-8" style="background-image: url(/static/assets/images/demos/demo-6/deal/deal.jpg);">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-12 col-md-8 col-lg-6">
+                            <div class="deal-content text-center">
+                                <h4>Limited quantities. </h4>
+                                <h2>Deal of the Day</h2>
+                                <div class="deal-countdown" data-until="+10h"></div>
+                            </div>
+                            <div class="row deal-products">
+                                <div class="col-6 deal-product text-center">
+                                    <figure class="product-media">
+                                        <a href="#">
+                                            <img src="/static/assets/images/demos/demo-6/deal/s1.jpeg"  alt="Product image"  >
+                                        </a>
+
+                                    </figure>
+
+                                    <div class="product-body">
+                                        <h3 class="product-title"><a href="#"><b><font color="white">Elasticated cotton shirt</font></b></a></h3>
+                                        <div class="product-price">
+                                            <span class="new-price"><font color="black"><b>Now 599/- </b></font></span>
+                                            <span class="old-price">Was 999/-</span>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="action">shop now</a>
+                                </div>
+                                <div class="col-6 deal-product text-center">
+                                   <figure class="product-media">
+                                        <a href="#">
+                                            <img src="/static/assets/images/demos/demo-6/deal/s2.jpg" alt="Product image" class="product-image">
+                                        </a>
+
+                                    </figure>
+
+                                    <div class="product-body">
+                                        <h3 class="product-title"><a href="#"><b><font color="white"> Van Heusen shorts</font></b></a></h3>
+                                        <div class="product-price">
+                                            <span class="new-price"><font color="black"><b>Now 399/- </b></font></span>
+                                            <span class="old-price">Was 899/-</span>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="action">shop now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-4 pb-3" style="background-color: #222;">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="icon-box text-center">
+                                <span class="icon-box-icon">
+                                    <i class="icon-truck"></i>
+                                </span>
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">Payment & Delivery</h3>
+                                    <p>Free shipping for orders over ₹50</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="icon-box text-center">
+                                <span class="icon-box-icon">
+                                    <i class="icon-rotate-left"></i>
+                                </span>
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">Return & Refund</h3>
+                                    <p>Free 100% money back guarantee</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="icon-box text-center">
+                                <span class="icon-box-icon">
+                                    <i class="icon-unlock"></i>
+                                </span>
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">Secure Payment</h3>
+                                    <p>100% secure payment</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-6">
+                            <div class="icon-box text-center">
+                                <span class="icon-box-icon">
+                                    <i class="icon-headphones"></i>
+                                </span>
+                                <div class="icon-box-content">
+                                    <h3 class="icon-box-title">Quality Support</h3>
+                                    <p>Alway online feedback 24/7</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pb-3">
+                <div class="container brands pt-5 pt-lg-7 ">
+
+                    <h2 class="title text-center mb-4">shop by brands</h2>
+
+                    <div class="owl-carousel owl-simple" data-toggle="owl"
+                        data-owl-options='{
+                            "nav": false,
+                            "dots": false,
+                            "margin": 30,
+                            "loop": false,
+                            "responsive": {
+                                "0": {
+                                    "items":2
+                                },
+                                "420": {
+                                    "items":3
+                                },
+                                "600": {
+                                    "items":4
+                                },
+                                "900": {
+                                    "items":5
+                                },
+                                "1024": {
+                                    "items":6
+                                }
+                            }
+                        }'>
+                        <a href="#" class="brand">
+                            <img src="/static/assets/images/brands/nike.png" alt="Brand Name">
+                        </a>
+
+                        <a href="#" class="brand">
+                            <img src="/static/assets/images/brands/adidas.png" alt="Brand Name">
+                        </a>
+
+                        <a href="#" class="brand">
+                            <img src="/static/assets/images/brands/gucci.jpg" alt="Brand Name">
+                        </a>
+
+                        <a href="#" class="brand">
+                            <img src="/static/assets/images/brands/lv.jpeg" alt="Brand Name">
+                        </a>
+
+                        <a href="#" class="brand">
+                            <img src="/static/assets/images/brands/th.png" alt="Brand Name">
+                        </a>
+
+                        <a href="#" class="brand">
+                            <img src="/static/assets/images/brands/lp.jpg" alt="Brand Name">
+                        </a>
+
+                        <a href="#" class="brand">
+                            <img src="/static/assets/images/brands/7.png" alt="Brand Name">
+                        </a>
+                    </div>
+                </div>
+
+
+
+            <div class="mb-2"></div>
+
+            <div class="container">
+            </div>
+            </div>
+       </main>
+        <div class="bg-light-2 pt-7 pb-6 testimonials">
+            <div class="container">
+                <h2 class="title text-center mb-2">Our Customers Say</h2>
+                <div class="owl-carousel owl-simple owl-testimonials" data-toggle="owl"
+                    data-owl-options='{
+                        "nav": false,
+                        "dots": true,
+                        "margin": 20,
+                        "loop": false,
+                        "responsive": {
+                            "1200": {
+                                "nav": true
+                            }
+                        }
+                    }'>
+
+                    <blockquote class="testimonial testimonial-icon text-center">
+                        <p class="lead">“Free Shipping”</p>
+                        <p>“  Very happy to shop from this beautiful online website ”</p>
+
+                        <cite>
+                            kiran kadalayi
+                            <span>Customer</span>
+                        </cite>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+
+
+{% endblock %}

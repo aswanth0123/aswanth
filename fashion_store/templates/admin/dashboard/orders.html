@@ -1,0 +1,56 @@
+{% extends 'admin/dashboard/base.html' %}
+{% block content %}
+<div class="container-fluid" id="container-wrapper">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"></h1>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" style="font-size: 15px"><a href="/admin/">Home</a></li>
+      <li class="breadcrumb-item" style="font-size: 15px">Orders</li>
+    </ol>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 mb-4">
+      <div class="card">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h3 class="m-0 font-weight-bold text-primary">Total Orders</h3>
+          <!-- <a class="m-0 float-right btn btn-danger btn-sm" href="#">View More <i
+              class="fas fa-chevron-right"></i></a> -->
+        </div>
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            {% for item in orders %}
+            <tbody>
+              <tr>
+                <td><a >{{item.orderid}}</a></td>
+                <td>{{item.customerid.name}}</td>
+                <td>{{item.productid.productcolor.productcommon.title}}</td>
+                {% if item.deliverystatus == 'Pending' %}
+                <td><span class="badge badge-danger" style="font-size: 15px">{{item.deliverystatus}}</span></td>
+                {% elif item.deliverystatus == 'Delivered' %}
+                <td><span class="badge badge-success" style="font-size: 15px">{{item.deliverystatus}}</span></td>
+                {% elif item.deliverystatus == 'Shipped' %}
+                <td><span class="badge badge-warning" style="font-size: 15px">{{item.deliverystatus}}</span></td>
+                {% elif item.deliverystatus == 'Processing' %}
+                <td><span class="badge badge-info" style="font-size: 15px">{{item.deliverystatus}}</span></td>
+                {% endif %}
+                <td><a href="/admin/singleorder/?id={{item.id}}" class="btn btn-sm btn-primary">Detail</a></td>
+              </tr>
+            </tbody>
+            {% endfor %}
+          </table>
+        </div>
+        <div class="card-footer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

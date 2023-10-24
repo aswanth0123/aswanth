@@ -1,0 +1,170 @@
+{% extends 'customer/homepage/base.html'%}
+{% block content %}
+<main class="main">
+            <div class="page-header text-center" style="background-image: url('/static/assets/images/page-header-bg.jpg')">
+                <div class="container">
+                    <h1 class="page-title">Checkout</h1>
+                </div>
+            </div>
+            <nav aria-label="breadcrumb" class="">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                    </ol>
+                </div>
+            </nav>
+            <br>
+            <br>
+            <div class="page-content">
+                <div class="checkout">
+                    <div class="container">
+                        <div class="checkout-discount">
+                            <form action="#">
+                                <input type="text" class="form-control" required id="checkout-discount-input">
+                                <label for="checkout-discount-input" class="text-truncate">Have a coupon? <span>Click here to enter your code</span></label>
+                            </form>
+                        </div>
+                        <form action="/checkout/" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-9">
+                                    <h1 style="font-size: 18px" class="checkout-title">Billing Details</h1>
+                                        {% for ad in address %}
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label>First Name *</label>
+                                                <input type="text" class="form-control" value="{{ad.customerid.fname}}" name='fname' required>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <label>Last Name *</label>
+                                                <input type="text" class="form-control" value="{{ad.customerid.lname}}" name='lname' required>
+                                            </div>
+                                        </div>
+                                        <label>Street address *</label>
+                                        <input type="text" class="form-control" placeholder="House number and Street name" name='house' value='{{ad.house}}' required>
+
+                                        <label>Near Location*</label>
+                                        <input type="text" class="form-control" name='nearl' value="{{ad.nearlocation}}"  required>
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label>Town / City *</label>
+                                                <input type="text" class="form-control" name='city' value="{{ad.city}}" required>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <label>State *</label>
+                                                <input type="text" class="form-control" name='state' value="{{ad.state}}" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label>Postcode  *</label>
+                                                <input type="text" class="form-control" name='pincode' value="{{ad.pincode}}" required>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <label>Phone *</label>
+                                                <input type="tel" class="form-control" name='phone' value="{{ad.phone}}" required>
+                                            </div>
+                                        </div>
+
+                                        <label>Email address *</label>
+                                        <input type="email" class="form-control" name='email' value="{{ad.customerid.email}}" required>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="checkout-create-acc">
+                                            <label class="custom-control-label" for="checkout-create-acc">Create an account?</label> -->
+                                        </div>
+
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="checkout-diff-address">
+                                            <label class="custom-control-label" for="checkout-diff-address">Ship to a different address?</label>
+                                        </div>
+                                        {% endfor %}
+                                         <label>Order notes (optional)</label>
+                                        <textarea class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea> -->
+                                </div>
+                                <aside class="col-lg-3">
+                                    <div class="summary">
+                                        <h3 class="summary-title">Your Order</h3>
+
+                                        <table class="table table-summary">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            {% for item in cart%}
+                                            <tbody>
+                                                <tr>
+                                                    <td><a href="/productsingle/?id2={{pro.productid.productcolor.colorid}}">{{item.productid.productcolor.productcommon.title}}</a></td>
+                                                    <td>₹{{item.price}}</td>
+                                                </tr>
+                                            {% endfor %}
+                                                 <tr class="summary-subtotal">
+                                                    <td>Subtotal:</td>
+                                                    <td>₹{{totalprice}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Shipping:</td>
+                                                    <td>Free shipping</td>
+                                                </tr>
+                                                <tr class="summary-total">
+                                                    <td>Total:</td>
+                                                    <td>₹{{totalprice}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="accordion-summary" id="accordion-payment">
+                                            <div class="card">
+
+                                            </div>
+
+                                            <div class="card">
+
+                                                <div id="collapse-2" class="collapse" aria-labelledby="heading-2" data-parent="#accordion-payment">
+                                                    <div class="card-body">
+                                                        Ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis.
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card">
+                                                <div class="card-header" id="heading-3">
+                                                    <h2 class="card-title">
+                                                        <a class="collapsed" role="button" data-toggle="collapse" href="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
+                                                            Cash on delivery
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                                <div id="collapse-3" class="collapse" aria-labelledby="heading-3" data-parent="#accordion-payment">
+                                                    <div class="card-body">Cash,UPI and Cards accepted
+                                                        <br>we have deselected Amazon Pay bakance to enable Pay on Delivery</br>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                            <span class="btn-text">Place Order</span>
+                                            <span class="btn-hover-text">Place Order</span>
+                                        </button>
+                                    </div>
+                                </aside>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+{% endblock %}

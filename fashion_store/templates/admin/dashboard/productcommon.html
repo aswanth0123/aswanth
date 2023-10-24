@@ -1,0 +1,98 @@
+{% extends 'admin/dashboard/base.html' %}
+{% block content %}
+
+<div class="container-fluid" id="container-wrapper">
+  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"></h1>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" style="font-size: 15px"><a href="/admin/dashboard">Home</a></li>
+      <li class="breadcrumb-item" style="font-size: 15px">Product</li>
+      <li class="breadcrumb-item active" aria-current="page" style="font-size: 15px">New Item</li>
+      <li class="breadcrumb-item active" aria-current="page" style="font-size: 15px">Common</li>
+    </ol>
+  </div>
+  <div class="row">
+    <div class="col-lg-7">
+
+      {% if id %}
+      <div class="card-body">
+        <div class="alert alert-success alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h6><i class="fas fa-check"></i><b> Success!</b></h6>
+          Product added id: {{id}} , Please note this id for adding different colors of this product. Click Link <a href="/admin/color/" class="alert-link">Color</a>
+        </div>
+      </div>
+      {% elif exist %}
+      <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h6><i class="fas fa-exclamation-triangle"></i><b> Warning!</b></h6>
+        Product Already Exist
+      </div>
+      {% endif %}
+      <div class="card mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">Common Details</h6>
+        </div>
+        <div class="card-body">
+          <form method='POST' action="/admin/common/">
+            {% csrf_token%}
+            <div class="form-group">
+              <label for="exampleInputEmail1">Product Name:</label>
+              <input type="text" name='name' class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Category:</label>
+              <input type="text" name='cat' class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Brand Name:</label>
+              <input type="text" name='brand' class="form-control" required>
+            </div>
+            <fieldset required class="form-group">
+              <div class="row">
+                <legend class="col-form-label col-sm-3 pt-0" >Gender:</legend>
+                <div class="col-sm-9">
+                  <div class="custom-control custom-radio">
+                    <input required type="radio" id="customRadio1" name="gender" value='men' class="custom-control-input">
+                    <label class="custom-control-label" for="customRadio1">Men</label>
+                  </div>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" id="customRadio2" name="gender" value='women' class="custom-control-input">
+                    <label class="custom-control-label" for="customRadio2">Women</label>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Product Details:</label>
+              <textarea required class="form-control" id="details" name='details' rows="3"></textarea>
+            </div>
+            <!-- <div  class='form-group'>
+              <label for="exampleFormControlTextarea1">Style Note:</label>
+              <div class="editable" contenteditable="true">
+                <ul name='note'>
+                    <li></li>
+                </ul>
+              </div>
+            </div> -->
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Style Note</label>
+              <textarea required class="form-control" id="note" name='note' rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Shipping & returns:</label>
+              <textarea required class="form-control" id="shipreturn" name='shipreturn' rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

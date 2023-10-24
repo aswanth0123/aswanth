@@ -1,0 +1,283 @@
+{% extends 'customer/homepage/productbase.html' %}
+{% block content %}
+<main class="main">
+            <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+                <div class="container d-flex align-items-center">
+
+
+                </div>
+            </nav><!-- End .breadcrumb-nav -->
+            {% for item in pro_Details %}
+            <div class="page-content">
+                <div class="container">
+                    <div class="product-details-top">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="product-gallery product-gallery-vertical">
+                                    <div class="row">
+                                        <figure class="product-main-image">
+                                            <img id="product-zoom" src="{{item.productcolor.picture.url}}" data-zoom-image="{{item.productcolor.picture.url}}"  alt="product image">
+
+                                            <a href="#" id="btn-product-gallery" class="btn-product-gallery">
+                                                <i class="icon-arrows"></i>
+                                            </a>
+                                        </figure><!-- End .product-main-image -->
+
+                                        <div id="product-zoom-gallery" class="product-image-gallery">
+                                            <a class="product-gallery-item active" href="#" data-image="{{item.productcolor.picture.url}}" data-zoom-image="{{item.productcolor.picture.url}}"  >
+                                                <img src="{{item.productcolor.picture.url}}" alt="product side">
+                                            </a>
+
+                                            <a class="product-gallery-item" href="#" data-image="{{item.productcolor.picture2.url}}" data-zoom-image="{{item.productcolor.picture2.url}}"  >
+                                                <img src="{{item.productcolor.picture2.url}}" alt="product cross">
+                                            </a>
+
+                                            <a class="product-gallery-item" href="#" data-image="{{item.productcolor.picture3.url}}" data-zoom-image="{{item.productcolor.picture3.url}}"  >
+                                                <img src="{{item.productcolor.picture3.url}}" alt="product with model">
+                                            </a>
+
+
+                                        </div><!-- End .product-image-gallery -->
+                                    </div><!-- End .row -->
+                                </div><!-- End .product-gallery -->
+                            </div><!-- End .col-md-6 -->
+
+                            <div class="col-md-6">
+                                <div class="product-details">
+                                    <h1 class="product-title">{{item.productcolor.productcommon.title}}</h1><!-- End .product-title -->
+
+                                    <div class="ratings-container">
+                                        <div class="ratings">
+                                            <div class="ratings-val" style="width: {{item.productcolor.productcommon.ratepercentage}}%;"></div><!-- End .ratings-val -->
+                                        </div><!-- End .ratings -->
+                                        <a class="ratings-text" href="#product-review-link" id="review-link">( {{item.productcolor.productcommon.ratecount}} Reviews )</a>
+                                    </div><!-- End .rating-container -->
+
+                                    <div class="product-price">
+                                        ₹{{item.price}}
+                                    </div><!-- End .product-price -->
+
+                                    <!-- <div class="product-content">
+                                        <p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing. Sed lectus. </p>
+                                    </div> --><!-- End .product-content -->
+                                    <br>
+                                    <div class="details-filter-row details-row-size">
+                                        <label>Color:</label>
+
+                                        <div class="product-nav product-nav-thumbs">
+                                            {% for i in color %}
+                                            {% if i.id in colorsize %}
+                                            {% if i.productcommon.productid == item.productcolor.productcommon.productid %}
+                                            <a href="/productsingle/?id2={{i.colorid}}" class="active">
+                                                <img src="{{i.productpicture.url}}" alt="product desc">
+                                            </a>
+                                            {% endif %}
+                                            {% endif %}
+                                            {% endfor%}
+
+                                        </div><!-- End .product-nav -->
+                                    </div><!-- End .details-filter-row -->
+                                    <br>
+                                    <div class="details-filter-row details-row-size">
+                                        <label for="size">Size:</label>
+                                        <div class="select-custom">
+                                            <select name="size" id='size'  class="form-control"  >
+                                                <option  value="">Select a size </option>
+                                                {% for j in size %}
+                                                {% if j.productcolor.colorid == item.productcolor.colorid %}
+                                                <option  value="{{j.id}}">{{j.size}}</option>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div><!-- End .select-custom -->
+
+<!--                                         <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a>
+ -->                                    </div><!-- End .details-filter-row -->
+
+                                    <div class="details-filter-row details-row-size">
+                                        <!-- <label for="qty">Qty:</label>
+                                        <div class="product-details-quantity">
+                                            <input type="number" id="qty" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0" required>
+                                        </div> --><!-- End .product-details-quantity -->
+                                    </div><!-- End .details-filter-row -->
+                                    <br>
+                                    <div class="product-details-action">
+
+                                        <button  style="border-style: none" onclick="addcart()"  class="btn-product btn-cart"><span id='cartclick'>add to cart</span></button>
+
+
+                                    </div><!-- End .product-details-action -->
+
+                                    <div class="product-details-footer">
+                                        <div class="product-cat">
+                                            <span>Category:</span>
+                                            <a href="/filter/{{item.productcolor.productcommon.category}}&/all/all/all/,0,750/">{{item.productcolor.productcommon.category}}</a>,
+                                            <a href="/filter/all/{{item.productcolor.productcommon.gender}}&/all/all/,0,750/">{{item.productcolor.productcommon.gender}}</a>,
+                                            <a href="/filter/all/all/all/{{item.productcolor.productcommon.brand}}&/,0,750/">{{item.productcolor.productcommon.brand}}</a>
+                                        </div><!-- End .product-cat -->
+
+                                        <div class="social-icons social-icons-sm">
+                                            <span class="social-label">Share:</span>
+                                            <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                                            <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                                            <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                                            <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                                        </div>
+                                    </div><!-- End .product-details-footer -->
+                                </div><!-- End .product-details -->
+                            </div><!-- End .col-md-6 -->
+                        </div><!-- End .row -->
+                    </div><!-- End .product-details-top -->
+
+                    <div class="product-details-tab">
+                        <ul class="nav nav-pills justify-content-center" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">Description</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="product-info-link" data-toggle="tab" href="#product-info-tab" role="tab" aria-controls="product-info-tab" aria-selected="false">Additional information</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="product-shipping-link" data-toggle="tab" href="#product-shipping-tab" role="tab" aria-controls="product-shipping-tab" aria-selected="false">Shipping & Returns</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">Reviews ({{totalreviewcount}})</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade" id="product-info-tab" role="tabpanel" aria-labelledby="product-info-link">
+                                <div class="product-desc-content">
+                                    <h3>Information</h3>
+
+                                    <p>{{item.productcolor.productcommon.stylenote}}</p>
+                                </div><!-- End .product-desc-content -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade" id="product-shipping-tab" role="tabpanel" aria-labelledby="product-shipping-link">
+                                <div class="product-desc-content">
+                                    <h3>Delivery & returns</h3>
+                                    <p>{{item.productcolor.productcommon.shippingandreturns}}</p>
+                                </div><!-- End .product-desc-content -->
+                            </div><!-- .End .tab-pane -->
+                            <div class="tab-pane fade" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
+                                <div class="reviews">
+                                    {% if customerexist %}
+                                    <h3 style="position: relative; right: -2px"><a id="review" href="#review-modal" data-toggle="modal">Rate Product</a>
+                                    <h3></h3>
+                                    {% else %}
+                                    <h3 style="position: relative; right: -2px">Please <a id="review" href="#signin-modal"   data-toggle="modal">login</a> rate product</h3>
+                                    <h3></h3>
+                                    {% endif %}
+                                    {% for j in totalreview%}
+                                    <div class="review">
+                                        <div class="row no-gutters">
+                                            <div class="col-auto">
+                                                <h4><a >{{j.customerid.name}}</a></h4>
+                                                <div class="ratings-container">
+                                                    <div class="ratings">
+                                                        <div class="ratings-val" style="width: {{j.starpercent}}%;"></div>
+                                                    </div>
+                                                </div>
+                                                <span class="review-date">{{j.createdtime|date:'d-m-m'}}</span>
+                                            </div>
+                                            <div class="col">
+                                                <div class="review-content">
+                                                    <p>{{j.review}}</p>
+                                                </div>
+                                                <div  class="review-action">
+                                                    <a href="#" ><i class="icon-thumbs-up"></i>Like</a> <!-- style="color:#c96;box-shadow:0 1px 0 #c96" -->
+                                                    <a href="#"><i class="icon-thumbs-down"></i>Delike</a>
+                                                </div><!-- End .review-action -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                            <div class="form-box">
+                                <div class="form-tab">
+                                    <ul class="nav nav-pills nav-fill" role="tablist">
+                                        <li class="nav-item">
+                                            <a style="font-size: 18px" class="nav-link active" id="review-tab"
+                                                data-toggle="tab" href="#review" role="tab" aria-controls="signin-2"
+                                                aria-selected="True">Post Review</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="review" role="tabpanel"
+                                            aria-labelledby="review-tab">
+                                            <form action="/productreview/" method="POST">
+                                                {% csrf_token %}
+                                                {% if review %}
+                                                {% for r in review %}
+                                                <div class="form-group">
+                                                    <label for="House">Review *</label>
+                                                    <textarea class="form-control" name='review'  required>{{r.review}}</textarea>
+                                                </div>
+                                                <input type="hidden" name="url" value="{{request.get_full_path}}">
+                                                <input type="hidden" name="reviewid" value='{{r.id}}'>
+                                                <input type="hidden" name="proid" value='{{item.productcolor.id}}'>
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <label>Rate *</label>
+                                                            <div class="select-custom">
+                                                            <select name="star"  class="form-control" required  >
+                                                                {% if r.starpercent == 20 %}
+                                                                <option  value="20">Horrible</option>
+                                                                {% elif r.starpercent == 40 %}
+                                                                <option  value="40">Bad</option>
+                                                                {% elif r.starpercent == 60 %}
+                                                                <option  value="60">Average</option>
+                                                                {% elif r.starpercent == 80 %}
+                                                                <option  selected value="80">Good</option>
+                                                                {% elif r.starpercent == 100 %}
+                                                                <option  value="100">Excellent</option>
+                                                                {% endif %}
+                                                                <option  value="20">Horrible</option>
+                                                                <option  value="40">Bad</option>
+                                                                <option  value="60">Average</option>
+                                                                <option  value='80'>Good</option>
+                                                                <option  value="100">Excellent</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                                {% else %}
+                                                <div class="form-group">
+                                                    <label for="House">Review *</label>
+                                                    <textarea class="form-control" name='review' required></textarea>
+                                                </div>
+                                                <input type="hidden" name="url" value="{{request.get_full_path}}">
+                                                <input type="hidden" name="proid" value='{{item.productcolor.id}}'>
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <label>Rate *</label>
+                                                            <div class="select-custom">
+                                                            <select name="star"  class="form-control" required  >
+                                                                <option  value="20">Horrible</option>
+                                                                <option  value="40">Bad</option>
+                                                                <option  value="60">Average</option>
+                                                                <option  selected value="80">Good</option>
+                                                                <option  value="100">Excellent</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+                                                <div class="form-footer">
+                                                    <button  type="submit" class="btn btn-outline-primary-2">
+                                                        <span>Submit</span>
+                                                        <i class="icon-long-arrow-right"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </main>
+{% endblock %}
